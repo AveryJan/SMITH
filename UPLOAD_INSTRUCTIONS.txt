@@ -1,0 +1,9 @@
+Upload the entire folder contents to https://github.com/AveryJan/SMITH using Add file > Upload files (preserve paths), or push with git.
+
+WARNING: This is a starter, not completed grading evidence. The About/Contact pages contain illustrative profiles and example contact details. The CI workflow explicitly skips missing projects. Do not claim tests or deployed screenshots have passed until the project is operational.
+
+After upload verify:
+https://github.com/AveryJan/SMITH/blob/main/README.md
+https://github.com/AveryJan/SMITH/blob/main/server/frontend/static/About.html
+https://github.com/AveryJan/SMITH/blob/main/server/frontend/static/Contact.html
+https://github.com/AveryJan/SMITH/blob/main/server/frontend/src/components/Register/Register.jsx

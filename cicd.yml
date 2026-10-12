@@ -1,0 +1,35 @@
+name: Capstone CI
+on: [push, pull_request]
+jobs:
+  python-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python linter
+        run: pip install flake8
+      - name: Python lint
+        run: |
+          if find . -name '*.py' -not -path './.git/*' | grep -q .; then
+            python -m flake8 . --select=E9,F63,F7,F82 --show-source
+          else
+            echo 'No Python files yet — Django backend not implemented'
+          fi
+  javascript-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Inspect JavaScript project
+        run: |
+          if [ -f server/frontend/package.json ]; then
+            cd server/frontend
+            npm ci
+            npm run lint
+          else
+            echo 'No frontend package.json yet — full JavaScript lint is pending'
+          fi
