@@ -1,0 +1,124 @@
+{
+  "cars": [
+    {
+      "make": "Toyota",
+      "model": "Camry",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Toyota",
+      "model": "Corolla",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Toyota",
+      "model": "RAV4",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Honda",
+      "model": "Civic",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Honda",
+      "model": "Accord",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Honda",
+      "model": "CR-V",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Ford",
+      "model": "Mustang",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Ford",
+      "model": "F-150",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Ford",
+      "model": "Escape",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Chevrolet",
+      "model": "Malibu",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Chevrolet",
+      "model": "Silverado",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Chevrolet",
+      "model": "Equinox",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Nissan",
+      "model": "Altima",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Nissan",
+      "model": "Sentra",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    },
+    {
+      "make": "Nissan",
+      "model": "Rogue",
+      "bodyType": "Sedan",
+      "year": 2024,
+      "dealer_id": 1,
+      "mileage": 10000
+    }
+  ]
+}

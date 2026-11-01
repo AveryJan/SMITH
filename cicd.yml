@@ -1,28 +1,29 @@
-name: Capstone CI
+name: Best Cars Capstone CI
 on:
   push:
   pull_request:
+permissions:
+  contents: read
 jobs:
-  verify-project-files:
+  structure-and-api:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Check capstone paths and content
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Validate rubric paths and required content
         run: python scripts/validate_submission.py
-      - name: Check Python syntax
+      - name: Check Python and Node syntax
         run: |
-          python - <<'PYCODE'
-          import pathlib,py_compile
-          for p in pathlib.Path('.').rglob('*.py'):
-              if '.git' not in p.parts:
-                  py_compile.compile(str(p),doraise=True)
-          print('Python syntax checks passed')
-          PYCODE
+          python -m compileall -q server scripts tests
+          node --check server/database/app.js
+          node --check server/frontend/vite.config.js
+      - name: Test real local Node and sentiment endpoints
+        run: python -m unittest discover -s tests -v
   django-tests:
     runs-on: ubuntu-latest
     steps:
@@ -30,11 +31,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Run Django tests when backend exists
-        run: |
-          if [ -f server/manage.py ] && [ -f server/requirements.txt ]; then
-            pip install -r server/requirements.txt
-            cd server && python manage.py test
-          else
-            echo 'Backend is not included in this correction package; Django integration tests not run.'
-          fi
+      - name: Install Django requirements
+        run: python -m pip install -r server/requirements.txt
+      - name: Run Django tests
+        working-directory: server
+        run: python manage.py test djangoapp -v 2
+  react-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install React frontend
+        working-directory: server/frontend
+        run: npm install --no-audit --no-fund
+      - name: Build React application
+        working-directory: server/frontend
+        run: npm run build

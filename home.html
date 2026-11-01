@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% block title %}Dealers | Best Cars{% endblock %}{% block content %}
+<section><h2>Find a dealership</h2><p>Explore dealerships and read customer reviews.</p>
+<form method="get"><label for="state">Filter by State</label><select id="state" name="state"><option value="">All states</option>
+{% for state in states %}<option value="{{state}}" {% if selected_state == state %}selected{% endif %}>{{state}}</option>{% endfor %}</select>
+<button type="submit">Apply filter</button><a href="/">Clear</a></form>
+{% if service_error %}<p role="alert">Dealership API is not running. Start the Node service on port 3030.</p>{% endif %}
+<div class="grid dealer-grid">{% for dealer in dealers %}<article class="card"><h3>{{dealer.full_name}}</h3><p><strong>Dealer ID:</strong> {{dealer.id}}</p><p>{{dealer.address}}<br>{{dealer.city}}, {{dealer.state}} {{dealer.zip}}</p>
+<a href="/dealers/{{dealer.id}}/">View Dealer &amp; Reviews</a>{% if request.user.is_authenticated %}<p><a href="/postreview/{{dealer.id}}/">Review Dealer</a></p>{% endif %}</article>
+{% empty %}<p>No dealers found.</p>{% endfor %}</div></section>
+{% endblock %}

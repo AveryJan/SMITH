@@ -1,0 +1,15 @@
+{% load static %}<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}Best Cars{% endblock %}</title><link rel="stylesheet" href="{% static 'bootstrap.min.css' %}"><link rel="stylesheet" href="{% static 'style.css' %}"></head>
+<body><header><div class="header-content"><h1><a href="/" class="brand">Best Cars</a></h1><nav aria-label="Main navigation"><a href="/">Dealers</a><a href="/static/About.html">About Us</a><a href="/static/Contact.html">Contact Us</a></nav>
+<div class="account" id="account">
+{% if request.user.is_authenticated %}<span>Signed in: <strong>{{request.user.username}}</strong></span> <button class="link-button" id="logoutButton">Logout</button>
+{% else %}<form id="loginForm" class="inline-login"><label>Username <input name="userName" required></label><label>Password <input type="password" name="password" required></label><button type="submit">Login</button></form><a href="/static/register.html">Register</a>{% endif %}
+</div></div><p id="accountMessage" role="status"></p></header>
+<main>{% block content %}{% endblock %}</main><footer>Best Cars dealership review capstone · Demo application</footer>
+<script>
+const loginForm=document.getElementById('loginForm');
+if(loginForm)loginForm.addEventListener('submit',async e=>{e.preventDefault();let f=new FormData(loginForm);let r=await fetch('/djangoapp/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(f))});if(r.ok)location.reload();else document.getElementById('accountMessage').textContent='Login failed. Check credentials.'});
+const logoutButton=document.getElementById('logoutButton');
+if(logoutButton)logoutButton.addEventListener('click',async()=>{await fetch('/djangoapp/logout'); location.reload()});
+</script></body></html>

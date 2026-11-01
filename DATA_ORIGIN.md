@@ -1,0 +1,1 @@
+These bundled fixtures are explicitly SYNTHETIC DEMO DATA for local development, NOT the original IBM dataset. Before using the project for course evidence, run `python scripts/import_ibm_data.py` from the project root to download the official IBM starter dataset. Never submit demo outputs as actual course data.

@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
+# Run only against the actually-running application, with the REAL IBM dataset loaded.
 set -euo pipefail
 mkdir -p evidence
-capture() {
-  local name="$1"; shift
-  echo "Running: curl -fsS $*" | tee "evidence/$name"
-  curl -fsS "$@" | python3 -m json.tool | tee -a "evidence/$name"
-}
-capture getdealerreviews http://localhost:3030/fetchReviews/dealer/1
-capture getalldealers http://localhost:3030/fetchDealers
-capture getdealerbyid http://localhost:3030/fetchDealer/1
-capture getdealersbyState http://localhost:3030/fetchDealers/Kansas
-capture getallcarmakes http://localhost:8000/djangoapp/get_cars
-capture analyzereview http://localhost:5050/analyze/Fantastic%20services
+curl -fsS http://localhost:3030/fetchReviews/dealer/1 | python3 -m json.tool > evidence/getdealerreviews
+curl -fsS http://localhost:3030/fetchDealers | python3 -m json.tool > evidence/getalldealers
+curl -fsS http://localhost:3030/fetchDealer/1 | python3 -m json.tool > evidence/getdealerbyid
+curl -fsS http://localhost:3030/fetchDealers/Kansas | python3 -m json.tool > evidence/getdealersbyState
+curl -fsS http://localhost:8000/djangoapp/get_cars | python3 -m json.tool > evidence/getallcarmakes
+curl -fsS 'http://localhost:5050/analyze/Fantastic%20services' | python3 -m json.tool > evidence/analyzereview
+printf 'Collected real command responses in evidence/. Verify original data is imported before submitting.\n'

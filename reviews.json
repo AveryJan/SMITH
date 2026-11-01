@@ -1,0 +1,16 @@
+{
+  "reviews": [
+    {
+      "id": 1,
+      "name": "Sample Reviewer",
+      "dealership": 1,
+      "review": "Fantastic services",
+      "purchase": true,
+      "purchase_date": "2024-04-10",
+      "car_make": "Toyota",
+      "car_model": "Camry",
+      "car_year": 2024,
+      "sentiment": "positive"
+    }
+  ]
+}

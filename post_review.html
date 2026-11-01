@@ -1,0 +1,10 @@
+{% extends 'base.html' %}{% block title %}Post Review | Best Cars{% endblock %}{% block content %}
+<h2>Post Review{% if dealer %} — {{dealer.full_name}}{% endif %}</h2>
+{% if error %}<p role="alert">{{error}}</p>{% endif %}
+<form method="post" class="review-form">{% csrf_token %}<p><label>Review <textarea name="review" required rows="5" placeholder="Tell us about your dealership experience"></textarea></label></p>
+<p><label>Purchased vehicle <input type="checkbox" name="purchase"></label></p>
+<p><label>Purchase date <input name="purchase_date" type="date"></label></p>
+<p><label>Car make <select name="car_make"><option value="">Select make</option>{% for make in makes %}<option value="{{make.name}}">{{make.name}}</option>{% endfor %}</select></label></p>
+<p><label>Car model <input name="car_model" placeholder="Vehicle model"></label></p>
+<p><label>Car year <input type="number" min="2015" max="2035" name="car_year" value="2024"></label></p>
+<button type="submit">Post Review</button></form>{% endblock %}
