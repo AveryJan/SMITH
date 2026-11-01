@@ -1,25 +1,43 @@
 import React, { useState } from 'react';
 
+const fields = [
+  { name: 'userName', label: 'Username', type: 'text', autoComplete: 'username' },
+  { name: 'firstName', label: 'First Name', type: 'text', autoComplete: 'given-name' },
+  { name: 'lastName', label: 'Last Name', type: 'text', autoComplete: 'family-name' },
+  { name: 'email', label: 'Email', type: 'email', autoComplete: 'email' },
+  { name: 'password', label: 'Password', type: 'password', autoComplete: 'new-password' }
+];
+
 export default function Register() {
-  const [form, setForm] = useState({ userName: '', firstName: '', lastName: '', email: '', password: '' });
-  const [message, setMessage] = useState('');
-  function update(event) { setForm(current => ({ ...current, [event.target.name]: event.target.value })); }
-  async function submit(event) {
-    event.preventDefault();
-    setMessage('Submitting registration...');
+  const [form, setForm] = useState({userName:'', firstName:'', lastName:'', email:'', password:''});
+  const [status, setStatus] = useState('');
+  const [busy, setBusy] = useState(false);
+  const change = (e) => setForm(s => ({...s, [e.target.name]: e.target.value}));
+  const submit = async (e) => {
+    e.preventDefault();
+    setBusy(true);
+    setStatus('');
     try {
-      const response = await fetch('/djangoapp/register', {
+      const res = await fetch('/djangoapp/register', {
         method: 'POST',
+        credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify(form)
       });
-      if (!response.ok) throw new Error(`Registration failed (${response.status})`);
-      setMessage('Registration completed successfully.');
-    } catch (error) { setMessage(error.message); }
-  }
-  return <main><h1>Sign Up</h1><form onSubmit={submit}>
-    {[['userName','Username','text'],['firstName','First Name','text'],['lastName','Last Name','text'],['email','Email','email'],['password','Password','password']].map(([name,label,type]) =>
-      <div key={name}><label htmlFor={name}>{label}</label><input id={name} name={name} type={type} value={form[name]} onChange={update} required autoComplete={name === 'password' ? 'new-password' : undefined}/></div>)}
-    <button type="submit">Register</button><p role="status">{message}</p>
+      if (!res.ok) throw new Error(`Registration failed (${res.status}).`);
+      setStatus('Registration completed.');
+    } catch(err) { setStatus(err.message); }
+    finally { setBusy(false); }
+  };
+  return <main><h1>Sign-up</h1><form onSubmit={submit}>
+    {fields.map(({name,label,type,autoComplete}) =>
+      <div key={name}>
+        <label htmlFor={name}>{label}</label>
+        <input id={name} name={name} type={type} placeholder={label} autoComplete={autoComplete}
+          value={form[name]} onChange={change} required />
+      </div>
+    )}
+    <button type="submit" disabled={busy}>Register</button>
+    <p role="status" aria-live="polite">{status}</p>
   </form></main>;
 }
